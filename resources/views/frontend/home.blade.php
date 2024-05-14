@@ -14,9 +14,10 @@
                 <h2 class="text-lg font-bold text-left mb-4">এস.এস.সি</h2>
                 <img src="{{ asset('public/frontend/logo/upbriity logo.svg') }}" alt="Card Image 1"
                     class="w-full rounded-lg mb-4">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('apply-for-uporitty') }}"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     আবেদন করুন
-                </button>
+                </a>
             </div>
         </div>
 
@@ -26,9 +27,10 @@
                 <h2 class="text-lg font-bold text-left mb-4">এইচ.এস.সি</h2>
                 <img src="{{ asset('public/frontend/logo/upbriity logo.svg') }}" alt="Card Image 1"
                     class="w-full rounded-lg mb-4">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('apply-for-uporitty') }}"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     আবেদন করুন
-                </button>
+                </a>
             </div>
         </div>
         <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 p-4">
@@ -37,9 +39,10 @@
                 <h2 class="text-lg font-bold text-left mb-4">অনার্স</h2>
                 <img src="{{ asset('public/frontend/logo/upbriity logo.svg') }}" alt="Card Image 1"
                     class="w-full rounded-lg mb-4">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('apply-for-uporitty') }}"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     আবেদন করুন
-                </button>
+                </a>
             </div>
         </div>
     </div>

@@ -37,7 +37,13 @@
     {{-- script --}}
 
     <script src="{{ asset('public/frontend/js/masum4it.js') }}"></script>
-
+    <script>
+        function limitLength(input) {
+            if (input.value.length > 17) {
+                input.value = input.value.slice(0, 17);
+            }
+        }
+    </script>
 
 </body>
 
