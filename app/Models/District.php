@@ -9,8 +9,15 @@ class District extends Model
 {
     use HasFactory;
     
-    public function apply_students()
+  
+
+   public function division()
     {
-        return $this->hasMany(ApplyStudent::class);
+        return $this->belongsTo(Division::class);
+    }
+
+    public function thanas()
+    {
+        return $this->hasMany(Thana::class);
     }
 }

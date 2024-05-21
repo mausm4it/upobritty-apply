@@ -4,28 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ApplyStudent extends Model
 {
     use HasFactory;
 
-    public function division()
+    public function paymentInfo()
     {
-        return $this->belongsTo(Division::class);
+        return $this->belongsTo(PaymentInfo::class);
     }
 
-    public function thana()
-    {
-        return $this->belongsTo(Thana::class);
-    }
 
-    public function district()
+      public function users(): BelongsToMany
     {
-        return $this->belongsTo(District::class);
-    }
-
-    public function union()
-    {
-        return $this->belongsTo(Union::class);
+        return $this->belongsToMany(User::class);
     }
 }

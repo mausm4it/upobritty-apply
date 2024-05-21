@@ -9,8 +9,9 @@ class Division extends Model
 {
     use HasFactory;
 
-     public function apply_students()
+
+   public function districts()
     {
-        return $this->hasMany(ApplyStudent::class);
+        return $this->hasMany(District::class);
     }
 }

@@ -9,8 +9,15 @@ class Thana extends Model
 {
     use HasFactory;
 
-     public function apply_students()
+   
+
+    public function district()
     {
-        return $this->hasMany(ApplyStudent::class);
+        return $this->belongsTo(District::class);
+    }
+
+    public function unions()
+    {
+        return $this->hasMany(Union::class);
     }
 }

@@ -17,6 +17,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $randomNumber = rand(1, 99999);
+        
         $user = new User;
         $user->name = "Upobritty Admin";
         $user->email = "admin@upobritty.com";
@@ -25,7 +26,17 @@ class AdminSeeder extends Seeder
         $user->password = Hash::make('12345678');
         $user->save();
 
-      
+        $user->assignRole('admin');
+
+        $user = new User;
+        $user->name = "Student Example";
+        $user->email = "student@upobritty.com";
+        $user->phone_number = "01789808878";
+        $user->user_id = "upobritty-student".$randomNumber;
+        $user->password = Hash::make('12345678');
+        $user->save();
+
+        $user->assignRole('student');
 
          
     }

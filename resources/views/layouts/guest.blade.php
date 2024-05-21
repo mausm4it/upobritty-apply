@@ -15,6 +15,7 @@
     <!-- Scripts -->
     <link rel="stylesheet" href="{{ asset('public/build/assets/app.css') }}">
     <script src="{{ asset('public/build/assets/app.js') }}" defer></script>
+    <link rel="icon" type="image/png" href="{{ asset('public/frontend/logo/upbriity logo.svg') }}">
 </head>
 
 <body class="font-sans text-gray-900 antialiased">

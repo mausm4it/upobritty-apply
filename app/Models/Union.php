@@ -9,8 +9,10 @@ class Union extends Model
 {
     use HasFactory;
 
-     public function apply_students()
+   
+
+    public function thana()
     {
-        return $this->hasMany(ApplyStudent::class);
+        return $this->belongsTo(Thana::class);
     }
 }

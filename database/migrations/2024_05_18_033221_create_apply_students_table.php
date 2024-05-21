@@ -40,18 +40,17 @@ return new class extends Migration
            
            
 //address
-            $table->unsignedBigInteger('division_id');
-            $table->foreign('division_id')->references('id')->on('divisions')->onDelete('cascade');
+            $table->string('division');
+           
             
-            $table->unsignedBigInteger('district_id');
-            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
-
-            $table->unsignedBigInteger('thana_id');
-            $table->foreign('thana_id')->references('id')->on('thanas')->onDelete('cascade');
+            $table->string('district');
+  
+            $table->string('thana');
+   
             
 
-            $table->unsignedBigInteger('union_id');
-            $table->foreign('union_id')->references('id')->on('unions')->onDelete('cascade');
+            $table->string('union');
+
             
             $table->string('home_no')->nullable();
 
@@ -85,8 +84,14 @@ return new class extends Migration
 //profile_image
             $table->string('profile_picture');
            
+//status
+            $table->string('status')->default('pending');
+            $table->string('payment_status')->default('pending');
 
-            
+
+
+
+
             $table->timestamps();
         });
     }
