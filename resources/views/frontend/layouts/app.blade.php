@@ -5,15 +5,39 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Upobritty.com</title>
+    <title>{{$settings->site_name}}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('public/frontend/css/masum4it.css') }}">
     <script src="https://kit.fontawesome.com/df01d4c991.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/png" href="{{ asset('public/frontend/logo/upbriity logo.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('storage/app/'.$settings->icon) }}">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .marquee-items {
+            display: inline-block;
+            padding: 1rem;
+            animation: marquee 20s linear infinite;
+        }
+    </style>
 </head>
 
 <body class="bg-cover bg-center bg-no-repeat noto-serif-bengali-700"
@@ -28,15 +52,15 @@
     </div>
 
 
+    <div class="w-full overflow-hidden marquee  shadow-lg bg-gray-900 text-yellow-500 border-t-4 border-green-500">
+        <div class="marquee-items">
+            @foreach ($notices as $notice)
+            <span class="mx-4"><i class="fa-solid fa-circle-exclamation mr-2"></i>{{$notice->notice}}</span>
+            @endforeach
 
 
-    <div
-        class="marquee bg-white text-black font-bold py-2 px-4 rounded fixed bottom-0 w-full border-t-2  border-green-500 ">
-        <span class="mr-8"><i class="fa-solid fa-circle-exclamation text-black"></i> এইচ.এস.সি ও অনার্সের উপবৃত্তি
-            কার্যক্রম শুরু হয়েছে ১৩ মে ২০২৪</span>
+        </div>
     </div>
-
-
     {{-- script --}}
 
     <script src="{{ asset('public/frontend/js/masum4it.js') }}"></script>

@@ -57,7 +57,7 @@
     <title>
         Upobritty
     </title>
-    <link rel="icon" type="image/png" href="{{ asset('public/frontend/logo/upbriity logo.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('storage/app/'.$settings->icon) }}">
     <link href="{{ asset('public/backend/style.css') }}" rel="stylesheet">
     <link href="{{ asset('public/frontend/masum4it.css') }}" rel="stylesheet">
     <script src="{{ asset('public/backend/masum4it.js') }}" nonce="d9eb3e08-fe3f-44b4-a2d7-731a27731580"></script>
@@ -65,6 +65,8 @@
     <link rel="stylesheet" href="{{ asset('public/frontend/css/masum4it.css') }}">
     <script src="https://kit.fontawesome.com/df01d4c991.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
 
 </head>
 
@@ -123,6 +125,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
             }
         }
     </script>
+
 </body>
 
 </html>

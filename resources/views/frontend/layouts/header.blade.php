@@ -1,12 +1,13 @@
 <nav
     class="bg-white text-black p-4 flex justify-between items-center sticky top-0 z-50 shadow-lg rounded border-t-2 border-r-2 border-l-2 border-green-500">
     <div>
-        <a href="#" class="font-bold text-lg"><img src="{{ asset('public/frontend/logo/upbriity logo.svg') }}"
+        <a href="{{route('home')}}" class="font-bold text-lg"><img src="{{ asset('storage/app/'.$settings->logo) }}"
                 class="h-10" alt="Upobritty Logo" /></a>
     </div>
-    <div class="hidden md:block"> <!-- Hide on small screens -->
+    <div class="hidden md:block">
+        <!-- Hide on small screens -->
         <ul class="flex space-x-4">
-            <li><a href="#" class="hover:text-gray-400">হোম</a></li>
+            <li><a href="{{route('home')}}" class="hover:text-gray-400">হোম</a></li>
             <li><a href="#" class="hover:text-gray-400">আমাদের সম্পর্কে</a></li>
             <li><a href="#" class="hover:text-gray-400">নোটিশ বোর্ড</a></li>
             <li><a href="#" class="hover:text-gray-400">আমাদের সাথে যোগাযোগ</a></li>

@@ -219,9 +219,12 @@ class ApplyController extends Controller
               }
 
             $user->user_id= "p".$apply_student->id.$phoneDigits."B".$rollDigits."i".$motherDigits."T".$fatherDigits;
-            $user->password= Hash::make("U".$apply_student->id.$phoneDigits."o".$rollDigits."R".$motherDigits."t".$fatherDigits."Y");
+            $password = $user->show_password="U".$apply_student->id.$phoneDigits."o".$rollDigits."R".$motherDigits."t".$fatherDigits."Y";
+            $user->password= Hash::make($password);
             $user->save();
- 
+            
+            $user->assignRole('student');
+            
             $apply_student->users()->attach($user);
           }
 

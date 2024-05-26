@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\ApplyStudent;
 use App\Models\Division;
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 
 class ApplyStudentController extends Controller
@@ -17,11 +20,52 @@ class ApplyStudentController extends Controller
         return view('admin.apply_student.index', compact('students_apply'));
     }
 
+     public function sendSMS($id){
+        $students_apply = ApplyStudent::find($id);
+
+         
+
+         $user_id= $students_apply->users()->first()->user_id;
+         $password= $students_apply->users()->first()->show_password;
+
+        $client = new Client();
+        $response = $client->post('http://sms.insafhost.com/api/v2/SendSMS', [
+            'json' => [
+                'SenderId' => env('SMS_SENDER_ID'),
+                'ApiKey' => env('SMS_API_KEY'),
+                'ClientId' => env('SMS_CLIENT_ID'),
+                'Message' => 'Hello'.$students_apply->english_name.'! Welcome to Upobrrity.com. Please Login and Download Your Application. Your User ID: '.$user_id.' Password: '.$password,
+                'MobileNumbers' => '88'.$students_apply->phone_number
+            ]
+        ]);
+// if ($response->getStatusCode() == 200) {
+//         $responseData = json_decode($response->getBody(), true);
+//         return response()->json($responseData);
+//     } else {
+//         return response()->json(['error' => 'Failed to send SMS'], $response->getStatusCode());
+//     }
+        // Check if the response is successful
+        if ($response->getStatusCode() == 200) {
+           
+            return redirect()->back()->with('success' , "User ID Password Send Successfully");
+        } else {
+            return redirect()->back()->with('error' , "Fail to sen SMS");
+        }
+        
+    }
+
+
+
 
     public function Submit(){
         $divisions = Division::all();
         return view('admin.apply_student.create', compact('divisions'));
     }
+    public function Edit($id){
+       $student_apply = ApplyStudent::find($id);
+        return view('admin.apply_student.edit', compact('student_apply'));
+    }
+    
 
 
     public function Make(Request $request){
@@ -44,10 +88,10 @@ class ApplyStudentController extends Controller
             // 'freedom_fighter_document'=> 'required',
             // 'freedom_fighter_name'=> 'required',
             // 'freedom_fighter_relation'=> 'required',
-            'division_id'=> 'required',
-            'district_id'=> 'required',
-            'thana_id'=> 'required',
-            'union_id'=> 'required',
+            'division'=> 'required',
+            'district'=> 'required',
+            'thana'=> 'required',
+            'union'=> 'required',
             // 'home_no'=> 'required',
             'exam_name'=> 'required',
             'board_name'=> 'required',
@@ -113,10 +157,10 @@ class ApplyStudentController extends Controller
             // $apply_student->freedom_fighter_document =$request-> freedom_fighter_document ;
             $apply_student->freedom_fighter_name =  $request->freedom_fighter_name;
             $apply_student->freedom_fighter_relation =  $request->freedom_fighter_relation;
-            $apply_student->division_id = $request-> division_id;
-            $apply_student->district_id = $request-> district_id;
-            $apply_student->thana_id =  $request->thana_id;
-            $apply_student->union_id =  $request->union_id;
+            $apply_student->division = $request-> division;
+            $apply_student->district = $request-> district;
+            $apply_student->thana =  $request->thana;
+            $apply_student->union =  $request->union;
             $apply_student->home_no = $request-> home_no;
             $apply_student->exam_name =  $request->exam_name;
             $apply_student->board_name = $request-> board_name;
@@ -218,9 +262,11 @@ class ApplyStudentController extends Controller
               }
 
             $user->user_id= "p".$apply_student->id.$phoneDigits."B".$rollDigits."i".$motherDigits."T".$fatherDigits;
-            $user->password= Hash::make("U".$apply_student->id.$phoneDigits."o".$rollDigits."R".$motherDigits."t".$fatherDigits."Y");
+            $password = $user->show_password="U".$apply_student->id.$phoneDigits."o".$rollDigits."R".$motherDigits."t".$fatherDigits."Y";
+            $user->password= Hash::make($password);
+            
             $user->save();
-
+            $user->assignRole('student');
             $apply_student->users()->attach($user);
  
 
@@ -229,5 +275,132 @@ class ApplyStudentController extends Controller
 
             return redirect()->route('apply_list')->with('success', 'Apply Submit Successfully');
 
+    }
+
+       public function Update(Request $request , $id){
+       
+
+
+           $apply_student = ApplyStudent::find($id);
+
+
+           if ($request->hasFile('profile_picture')) {
+              
+            if ($apply_student->profile_picture) {
+                Storage::delete($apply_student->profile_picture);
+            }
+            $imagePath = $request->file('profile_picture')->storeAs('student_profile_picture', 'profile_picture' . now()->format('YmdHis') . '.' . $request->file('profile_picture')->getClientOriginalExtension());
+            $apply_student->profile_picture = $imagePath;
+           
+        }
+
+
+        if ($request->hasFile('freedom_fighter_document')) {
+              
+            if ($apply_student->freedom_fighter_document) {
+                Storage::delete($apply_student->freedom_fighter_document);
+            }
+            $imagePath = $request->file('freedom_fighter_document')->storeAs('student_freedom_fighter_document', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('freedom_fighter_document')->getClientOriginalExtension());
+            $apply_student->profile_picture = $imagePath;
+           
+        }
+
+            $apply_student->bangla_name = $request->bangla_name;
+            $apply_student->engish_name = $request-> engish_name;
+            $apply_student->birth_date  = $request->birth_date;
+            $apply_student->birth_date_number = $request-> birth_date_number;
+            $apply_student->nationality =  $request->nationality;
+            $apply_student->national_id_number =$request-> national_id_number ;
+            $apply_student->religion =  $request->religion;
+            $apply_student->gender =  $request->gender;
+            $apply_student->marital_status =  $request->marital_status;
+            $apply_student->partner_name =  $request->partner_name;
+            $apply_student->phone_number =  $request->phone_number;
+            $apply_student->email =  $request->email;
+            $apply_student->minorities = $request-> minorities;
+            $apply_student->minorities_name = $request-> minorities_name;
+            $apply_student->freedom_fighter =  $request->freedom_fighter;
+            // $apply_student->freedom_fighter_document =$request-> freedom_fighter_document ;
+            $apply_student->freedom_fighter_name =  $request->freedom_fighter_name;
+            $apply_student->freedom_fighter_relation =  $request->freedom_fighter_relation;
+            $apply_student->division = $request-> division;
+            $apply_student->district = $request-> district;
+            $apply_student->thana =  $request->thana;
+            $apply_student->union =  $request->union;
+            $apply_student->home_no = $request-> home_no;
+            $apply_student->exam_name =  $request->exam_name;
+            $apply_student->board_name = $request-> board_name;
+            $apply_student->roll =  $request->roll;
+            $apply_student->subject =  $request->subject;
+            $apply_student->result_type =  $request->result_type;
+            $apply_student->result =  $request->result;
+            $apply_student->passing_year =  $request->passing_year;
+
+
+            $apply_student->father_bangla_name = $request->father_bangla_name ;
+            $apply_student->father_english_name =  $request->father_english_name;
+            $apply_student->mother_english_name =  $request->mother_english_name;
+            $apply_student->mother_bangla_name =  $request->mother_bangla_name;
+            $apply_student->father_national_id_number =  $request->father_national_id_number;
+            $apply_student->mother_national_id_number =  $request->mother_national_id_number;
+        
+          
+            $apply_student->guardian =  $request->guardian;
+            $apply_student->guardian_education =  $request->guardian_education;
+            $apply_student->guardian_name =  $request->guardian_name;
+            $apply_student->guardian_name_national_id_number =  $request->guardian_name_national_id_number;
+            $apply_student->guardian_address =  $request->guardian_address;
+
+            
+            //status
+            $apply_student->status =  $request->status;
+            $apply_student->payment_status =  $request->payment_status;
+
+            $apply_student->save();
+
+           //userId father- 1-5  phone- 2-3, roll- 2-3, mother- 1-5, 
+           //upobritty 2-4-6-8
+
+             
+          //userId father- 1-5  phone- 2-3, roll- 2-3, mother- 1-5, 
+           //upobritty 1-3-5-7-9
+           
+            
+ 
+
+
+            
+
+            return redirect()->route('apply_list')->with('success', 'Application Updated Successfully');
+
+    }
+
+
+    public function updateStatus(Request $request, $id ){
+      $student_apply = ApplyStudent::findOrFail($id);
+      $student_apply->status = $request->input('status');
+      $student_apply->save();
+
+      return redirect()->back()->with('success', 'Status updated successfully!');
+    }
+
+
+      public function updatePaymentStatus(Request $request, $id ){
+      $student_apply = ApplyStudent::findOrFail($id);
+      $student_apply->payment_status = $request->input('payment_status');
+      $student_apply->save();
+
+      return redirect()->back()->with('success', 'Payment Status updated successfully!');
+    }
+
+    public function View($id){
+        $student_apply = ApplyStudent::find($id);
+        return view('admin.apply_student.view', compact('student_apply'));
+    }
+
+      public function Delete($id){
+       $student_apply = ApplyStudent::find($id);
+      $student_apply->delete();
+      return redirect()->back()->with('success', 'Application Delete successfully!');
     }
 }

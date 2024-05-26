@@ -107,7 +107,25 @@
                   </div>
                 </div>
               </th>
-
+              <th>
+                <div class="flex items-center gap-1.5">
+                  <p>Send Confirm ID Password</p>
+                  <div class="inline-flex flex-col space-y-[2px]">
+                    <span class="inline-block">
+                      <svg class="fill-current" width="10" height="5" viewBox="0 0 10 5" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 0L0 5H10L5 0Z" fill="" />
+                      </svg>
+                    </span>
+                    <span class="inline-block">
+                      <svg class="fill-current" width="10" height="5" viewBox="0 0 10 5" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z" fill="" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </th>
               <th>
                 <div class="flex items-center gap-1.5">
                   <p>Payment Status</p>
@@ -191,6 +209,18 @@
                 {{$item->phone_number}}
               </td>
               <td>{{$item->exam_name}}</td>
+              <td>
+                <form action="{{route('send_sms_uid_pass',$item->id)}}" method="POST">
+                  @csrf
+                  <div class="flex items-center justify-between">
+                    <button
+                      class="text-xs bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                      type="submit">
+                      Send ID, Password
+                    </button>
+                  </div>
+                </form>
+              </td>
 
               <td>
                 @if ($item->payment_status == 'pending')
@@ -208,9 +238,30 @@
                 </p>
                 @endif
 
+                <form class="text-center" action="{{ route('updatePaymentStatus', $item->id) }}" method="POST">
+                  @csrf
+                  @method('PUT')
+                  <select name="payment_status" id="payment_status" onchange="this.form.submit()"
+                    class="text-center rounded-full mt-2">
+                    <option
+                      class="text-center rounded-full bg-warning bg-opacity-10 px-3 py-1 text-sm font-medium text-warning"
+                      value="pending" {{ $item->payment_status == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option
+                      class="text-center rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger"
+                      value="reject" {{ $item->payment_status == 'reject' ? 'selected' : '' }}>Reject</option>
+                    <option
+                      class="text-center rounded-full bg-success bg-opacity-10 px-3 py-1 text-sm font-medium text-success"
+                      value="paid" {{ $item->payment_status == 'paid' ? 'selected' : '' }}>Paid</option>
+                  </select>
+                </form>
+
               </td>
 
               <td>
+
+
+
+
                 @if ($item->status == 'pending')
                 <p class="text-center rounded-full bg-warning bg-opacity-10 px-3 py-1 text-sm font-medium text-warning">
                   Pending
@@ -225,12 +276,28 @@
                   Accept
                 </p>
                 @endif
+
+                <form class="text-center" action="{{ route('updateStatus', $item->id) }}" method="POST">
+                  @csrf
+                  @method('PUT')
+                  <select name="status" id="status" onchange="this.form.submit()" class="text-center rounded-full mt-2">
+                    <option
+                      class="text-center rounded-full bg-warning bg-opacity-10 px-3 py-1 text-sm font-medium text-warning"
+                      value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option
+                      class="text-center rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger"
+                      value="reject" {{ $item->status == 'reject' ? 'selected' : '' }}>Reject</option>
+                    <option
+                      class="text-center rounded-full bg-success bg-opacity-10 px-3 py-1 text-sm font-medium text-success"
+                      value="accept" {{ $item->status == 'accept' ? 'selected' : '' }}>Accept</option>
+                  </select>
+                </form>
               </td>
 
               {{-- action --}}
               <td>
                 <div class="flex items-center text-center space-x-3.5">
-                  <button class="hover:text-primary">
+                  <a href="{{route('show_student_apply', $item->id)}}" class="hover:text-primary">
                     <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -240,8 +307,8 @@
                         d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z"
                         fill="" />
                     </svg>
-                  </button>
-                  <button class="hover:text-primary">
+                  </a>
+                  <a href="{{route('edit_student_apply', $item->id)}}" class="hover:text-primary">
                     <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_652_20634)">
@@ -258,8 +325,8 @@
                         </clipPath>
                       </defs>
                     </svg>
-                  </button>
-                  <button class="hover:text-primary">
+                  </a>
+                  <a href="{{route('delete_student_apply', $item->id)}}" class="hover:text-primary">
                     <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -275,7 +342,7 @@
                         d="M6.72245 9.67504C6.38495 9.70317 6.1037 10.0125 6.13182 10.35L6.3287 12.825C6.35683 13.1625 6.63808 13.4157 6.94745 13.4157C6.97558 13.4157 6.97558 13.4157 7.0037 13.4157C7.3412 13.3875 7.62245 13.0782 7.59433 12.7407L7.39745 10.2657C7.39745 9.90004 7.08808 9.64692 6.72245 9.67504Z"
                         fill="" />
                     </svg>
-                  </button>
+                  </a>
 
                 </div>
               </td>
