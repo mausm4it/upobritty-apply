@@ -6,10 +6,21 @@
                     মাসুম
                     ফর আইটি</a></span>
             <ul class="flex flex-wrap justify-center space-x-4">
-                <li><a href="#" class="hover:text-gray-400">হোম</a></li>
-                <li><a href="#" class="hover:text-gray-400">আমাদের সম্পর্কে</a></li>
-                <li><a href="#" class="hover:text-gray-400 ">নোটিশ বোর্ড</a></li>
-                <li><a href="#" class="hover:text-gray-400">আমাদের সাথে যোগাযোগ</a></li>
+                <li><a href="{{route('home')}}" class="hover:text-gray-400">হোম</a></li>
+
+                @foreach ($pages as $page)
+                <li><a href="#" class="hover:text-gray-400">{{$page->page_name}}</a></li>
+                @endforeach
+
+
+                @role('student')
+
+                <li><a href="{{route('student_dashboard')}}" class="hover:text-green-700">ড্যাশবোর্ড</a></li>
+                @else
+                <li><a href="{{route('login')}}" class="hover:text-red-600">লগ ইন</a></li>
+                @endrole
+
+
             </ul>
         </div>
     </div>

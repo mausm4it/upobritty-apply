@@ -8,7 +8,7 @@ use App\Models\NoticeBoard;
 use App\Models\Setting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
-
+use App\Models\Page;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -32,6 +32,12 @@ class AppServiceProvider extends ServiceProvider
         if(Schema::hasTable('settings')){
             View::share('settings', Setting::find(1));
         }
+
+       if(Schema::hasTable('pages')){
+            View::share('pages', Page::where('status', 1)->latest()->get());
+        }
+
+     
         
     }
 }

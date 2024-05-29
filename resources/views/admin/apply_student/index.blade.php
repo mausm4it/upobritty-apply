@@ -107,9 +107,29 @@
                   </div>
                 </div>
               </th>
+
               <th>
                 <div class="flex items-center gap-1.5">
-                  <p>Send Confirm ID Password</p>
+                  <p class="text-xs">Transaction ID/ Send Money Number</p>
+                  <div class="inline-flex flex-col space-y-[2px]">
+                    <span class="inline-block">
+                      <svg class="fill-current" width="10" height="5" viewBox="0 0 10 5" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 0L0 5H10L5 0Z" fill="" />
+                      </svg>
+                    </span>
+                    <span class="inline-block">
+                      <svg class="fill-current" width="10" height="5" viewBox="0 0 10 5" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z" fill="" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="flex items-center gap-1.5">
+                  <p class="text-xs">Send Confirm ID Password</p>
                   <div class="inline-flex flex-col space-y-[2px]">
                     <span class="inline-block">
                       <svg class="fill-current" width="10" height="5" viewBox="0 0 10 5" fill="none"
@@ -209,6 +229,20 @@
                 {{$item->phone_number}}
               </td>
               <td>{{$item->exam_name}}</td>
+              <td>
+
+                @if(isset($item->paymentInfos))
+
+                @foreach ($item->paymentInfos as $info)
+                {{$info->info}}
+                @endforeach
+
+                @else
+                <p>not found</p>
+                @endif
+
+              </td>
+
               <td>
                 <form action="{{route('send_sms_uid_pass',$item->id)}}" method="POST">
                   @csrf

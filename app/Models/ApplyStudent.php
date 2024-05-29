@@ -10,9 +10,9 @@ class ApplyStudent extends Model
 {
     use HasFactory;
 
-    public function paymentInfo()
+    public function paymentInfos()
     {
-        return $this->belongsTo(PaymentInfo::class);
+        return $this->hasMany(PaymentInfo::class);
     }
 
 

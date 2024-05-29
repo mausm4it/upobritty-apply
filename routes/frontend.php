@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/page_view/{id}', 'HomeController@page_view')->name('page_view');
 Route::get('/apply-for-uporitty-view', 'ApplyController@index')->name('apply-for-uporitty-view');
 Route::post('/apply-uporitty', 'ApplyController@ApplyUpobritty')->name('apply-uporitty');
 

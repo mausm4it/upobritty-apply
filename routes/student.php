@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+Route::group(['middleware' => ['role:student']], function () {
 
 
- Route::group(['middleware' => ['role:student']], function () {
-  Route::get('/student_dashboard', function () 
-   {
-      return view('student.dashboard');
-   })->name('student_dashboard');
+   Route::get('/my_applications', 'StudentController@my_applications')->name('student_dashboard');
+
+   
+   Route::post('/delete_application/{id}', 'StudentController@delete_application')->name('delete_application');
  });
+
+ 

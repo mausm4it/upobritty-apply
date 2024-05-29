@@ -57,5 +57,19 @@ Route::group(['middleware' => ['role:admin']], function () {
      Route::post('/sendSms','SmsController@sendSms')->name('send-sms');
      Route::get('/send-sms-view','SmsController@index')->name('send-sms-view');
 
+     //pages
+    Route::get('/pages','PageController@index')->name('pages');
+    Route::get('/page_create_view', 'PageController@page_create_view')->name('page_create_view'); 
+    Route::post('/page_create', 'PageController@page_create')->name('page_create');  
+    Route::get('/page_edit_view/{id}', 'PageController@page_edit_view')->name('page_edit_view'); 
+    Route::post('/page_update/{id}', 'PageController@page_update')->name('page_update');  
+    Route::get('/page_delete/{id}', 'PageController@page_delete')->name('page_delete'); 
+    
+    
+    //payment_info
+
+    
+    
+     Route::get('/payment_info_view','PaymentController@payment_info_view')->name('payment_info_view');
     
  });
