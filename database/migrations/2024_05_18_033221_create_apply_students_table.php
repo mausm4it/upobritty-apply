@@ -20,18 +20,22 @@ return new class extends Migration
             $table->string('bangla_name');
             $table->string('engish_name');
             $table->date('birth_date');
-            $table->string('birth_date_number');
+            $table->string('nid_number');
             $table->string('nationality');
-            $table->string('national_id_number')->nullable();
-            $table->string('religion');
             $table->string('gender');
-            $table->string('marital_status');
-            $table->string('partner_name')->nullable();
             $table->string('phone_number');
-            $table->string('email')->nullable();
-            $table->string('minorities');
+            $table->string('land');
+            $table->string('father_name');
+            $table->string('mother_name');
+            
+            
+            //Qouta
             $table->string('minorities_name')->nullable();
-            $table->string('freedom_fighter');
+            $table->string('minorities_document')->nullable();
+            
+            $table->string('otizom_name')->nullable();
+            $table->string('otizom_document')->nullable();
+      
             $table->string('freedom_fighter_document')->nullable();
             $table->string('freedom_fighter_name')->nullable();
             $table->string('freedom_fighter_relation')->nullable();
@@ -41,44 +45,31 @@ return new class extends Migration
            
 //address
             $table->string('division');
-           
-            
             $table->string('district');
-  
             $table->string('thana');
-   
-            
-
             $table->string('union');
-
-            
             $table->string('home_no')->nullable();
 
 
             
 //education
             $table->string('exam_name');
-            $table->string('board_name');
+            $table->string('class_name');
             $table->string('roll');
-            $table->string('subject');
-            $table->string('result_type');
-            $table->string('result');
-            $table->string('passing_year');
-
-//parents_info
-            $table->string('father_bangla_name');
-            $table->string('father_english_name');
-            $table->string('mother_english_name');
-            $table->string('mother_bangla_name');
-            $table->string('father_national_id_number');
-            $table->string('mother_national_id_number');
+            $table->string('subject')->nullable();
+            $table->string('institute_name');
+            $table->string('prottoyon_potro');
+           
+            // $table->string('result_type');
+            // $table->string('result');
+            // $table->string('passing_year');
+           
+   
         
 //guardian_info            
-            $table->string('guardian');
-            $table->string('guardian_education');
-            $table->string('guardian_name');
-            $table->string('guardian_name_national_id_number');
-            $table->string('guardian_address');
+            $table->string('guardian_education')->nullable();
+            $table->string('guardian_name')->nullable();
+            $table->string('guardian_address')->nullable();
 
 
 //profile_image

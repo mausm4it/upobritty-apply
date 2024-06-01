@@ -8,18 +8,20 @@
         <!-- Hide on small screens -->
         <ul class="flex space-x-4">
             <li><a href="{{route('home')}}" class="hover:text-gray-400">হোম</a></li>
+            <li><a href="{{route('download_application')}}" class="hover:text-gray-400">ডাউনলোড অ্যাপ্লিকেশন</a></li>
+            <li><a href="{{route('application_status')}}" class="hover:text-gray-400">আবেদনপত্রের বর্তমান অবস্থা</a>
+            </li>
 
             @foreach ($pages as $page)
             <li><a href="#" class="hover:text-gray-400">{{$page->page_name}}</a></li>
             @endforeach
 
 
-            @role('student')
 
-            <li><a href="{{route('student_dashboard')}}" class="hover:text-green-700">ড্যাশবোর্ড</a></li>
-            @else
-            <li><a href="{{route('login')}}" class="hover:text-red-600">লগ ইন</a></li>
-            @endrole
+
+            <li><a href="{{route('notice_board_list')}}" class="hover:text-green-700">নোটিশ বোর্ড</a></li>
+
+
         </ul>
     </div>
     <!-- Mobile menu button -->

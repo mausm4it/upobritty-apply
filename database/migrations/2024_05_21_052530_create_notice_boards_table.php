@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('notice_boards', function (Blueprint $table) {
             $table->id();
             $table->string('notice');
+            $table->longText('content');
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ class NoticeBoardController extends Controller
 
         $notice = new NoticeBoard();
         $notice->notice = $request->notice;
+        $notice->content = $request->content;
         $notice->save();
 
         return redirect()->back()->with('success', 'Notice Create Successfully !');

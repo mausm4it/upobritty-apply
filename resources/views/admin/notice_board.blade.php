@@ -60,9 +60,20 @@
                                 @csrf
                                 <div class="mb-5">
                                     <label for="taskTitle"
-                                        class="mb-2.5 block font-medium text-black dark:text-white">Notice Text</label>
-                                    <input type="text" name="notice" id="taskTitle" placeholder="Enter Notice Text"
+                                        class="mb-2.5 block font-medium text-black dark:text-white">Notice Name</label>
+                                    <input required type="text" name="notice" id="taskTitle"
+                                        placeholder="Enter Notice Text"
                                         class="w-full rounded-sm border border-stroke bg-white px-4.5 py-3 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-boxdark dark:text-white dark:focus:border-primary" />
+                                </div>
+
+                                <div class="mb-5">
+                                    <label for="content" class="mb-3 block text-base font-medium text-[#07074D]">
+                                        Notice Description
+                                    </label>
+                                    <textarea name="content" value="{{ old('content') }}" required
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ old('home_no') }}</textarea>
+
+
                                 </div>
 
 

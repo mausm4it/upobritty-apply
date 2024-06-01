@@ -10,6 +10,23 @@ Route::post('/apply-uporitty', 'ApplyController@ApplyUpobritty')->name('apply-up
 Route::get('/payment_view', 'PaymentController@index')->name('payment_view');
 Route::post('/payment_info_input', 'PaymentController@payment_info_input')->name('payment_info_input');
 
+//pages
+Route::get('/download_application', 'HomeController@download_application')->name('download_application');
+Route::get('/application_status', 'HomeController@application_status')->name('application_status');
+
+//user login
+Route::get('/user_login_view', 'HomeController@user_login_view')->name('user_login_view');
+Route::post('/user_login', 'HomeController@user_login')->name('user_login');
+
+
+//student dashboard
+
+  Route::get('/student_application', 'HomeController@student_application')->name('student_application');
+  Route::get('/student_application_status', 'HomeController@student_application_status')->name('student_application_status');
+
+  //notice board
+  Route::get('/notice_board_list', 'HomeController@notice_board_list')->name('notice_board_list');
+  Route::get('/notice/{id}', 'HomeController@notice_view')->name('notice_view');
 
 
 Route::get('/success', function(){

@@ -89,8 +89,101 @@
                 preview.style.display = 'none';
             }
         }
-    </script>
 
+
+
+        function ProttoyonImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('prottoyonPreview');
+        
+        if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+        preview.src = e.target.result;
+        preview.style.display = 'inline-block';
+        };
+        
+        reader.readAsDataURL(input.files[0]);
+        } else {
+        preview.src = '#';
+        preview.style.display = 'none';
+        }
+        }
+
+
+//Gurdian Toggle Form Show Hide
+        document.getElementById('guardianCheckbox').addEventListener('change', function() {
+        var form = document.getElementById('guardianForm');
+        if (this.checked) {
+        form.classList.remove('hidden');
+        } else {
+        form.classList.add('hidden');
+        }
+        });
+
+
+
+//freedomFighter Toggle Form Show Hide
+document.getElementById('freedomFighterCheckbox').addEventListener('change', function() {
+var form = document.getElementById('freedomFighterForm');
+if (this.checked) {
+form.classList.remove('hidden');
+} else {
+form.classList.add('hidden');
+}
+});
+
+
+//minorities Toggle Form Show Hide
+document.getElementById('minoritiesCheckbox').addEventListener('change', function() {
+var form = document.getElementById('minoritiesForm');
+if (this.checked) {
+form.classList.remove('hidden');
+} else {
+form.classList.add('hidden');
+}
+});
+
+//otizom Toggle Form Show Hide
+document.getElementById('otizomCheckbox').addEventListener('change', function() {
+var form = document.getElementById('otizomForm');
+if (this.checked) {
+form.classList.remove('hidden');
+} else {
+form.classList.add('hidden');
+}
+});
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('download-btn').addEventListener('click', function () {
+        // Show the loader
+        document.getElementById('loader').classList.remove('hidden');
+        
+        // Define the element that needs to be converted to PDF
+        const element = document.getElementById('content');
+        
+        // Options for the PDF generation
+        const opt = {
+        margin: 0.4,
+        filename: 'my_application.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        
+        // Use html2pdf to convert the element to PDF
+        html2pdf().from(element).set(opt).save().then(() => {
+        // Hide the loader once the PDF has been generated and download starts
+        document.getElementById('loader').classList.add('hidden');
+        }).catch((error) => {
+        console.error('PDF generation error:', error);
+        // Hide the loader if an error occurs
+        document.getElementById('loader').classList.add('hidden');
+        });
+        });
+    </script>
 
 </body>
 

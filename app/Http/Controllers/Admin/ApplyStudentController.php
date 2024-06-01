@@ -20,6 +20,11 @@ class ApplyStudentController extends Controller
         return view('admin.apply_student.index', compact('students_apply'));
     }
 
+    
+    
+
+    
+
      public function sendSMS($id){
         $students_apply = ApplyStudent::find($id);
 
@@ -58,8 +63,8 @@ class ApplyStudentController extends Controller
 
 
     public function Submit(){
-        $divisions = Division::all();
-        return view('admin.apply_student.create', compact('divisions'));
+       
+        return view('admin.apply_student.create');
     }
     public function Edit($id){
        $student_apply = ApplyStudent::find($id);
@@ -73,45 +78,26 @@ class ApplyStudentController extends Controller
             'bangla_name'=> 'required',
             'engish_name'=> 'required',
             'birth_date'=> 'required',
-            'birth_date_number'=> 'required',
             'nationality'=> 'required',
-            'national_id_number'=> 'required',
-            'religion'=> 'required',
+            'nid_number'=> 'required',
             'gender'=> 'required',
-            'marital_status'=> 'required',
-            // 'partner_name'=> 'required',
-            'phone_number'=> 'required|unique:apply_students,phone_number',
-        //    'email' => 'unique:apply_students,email',
-            'minorities'=> 'required',
-            // 'minorities_name'=> 'required',
-            'freedom_fighter'=> 'required',
-            // 'freedom_fighter_document'=> 'required',
-            // 'freedom_fighter_name'=> 'required',
-            // 'freedom_fighter_relation'=> 'required',
+            'phone_number'=> 'required',
+            'father_name'=> 'required',
+            'mother_name'=> 'required',
+
+            
             'division'=> 'required',
             'district'=> 'required',
             'thana'=> 'required',
             'union'=> 'required',
-            // 'home_no'=> 'required',
+           
             'exam_name'=> 'required',
-            'board_name'=> 'required',
+            'class_name'=> 'required',
             'roll'=> 'required',
-            'subject'=> 'required',
-            'result_type'=> 'required',
-            'result'=> 'required',
-            'passing_year'=> 'required',
-            'father_bangla_name'=> 'required',
-            'father_english_name'=> 'required',
-            'mother_english_name'=> 'required',
-            'mother_bangla_name'=> 'required',
-            'father_national_id_number'=> 'required',
-            'mother_national_id_number'=> 'required',
-            'guardian'=> 'required',
-            // 'guardian_education'=> 'required',
-            'guardian_name'=> 'required',
-            'guardian_name_national_id_number'=> 'required',
-            'guardian_address'=> 'required',
-            'profile_picture'=> 'required|image|dimensions:width=300,height=300'
+            'institute_name'=> 'required',
+            'prottoyon_potro'=> 'required',
+            
+            'profile_picture'=> 'required|image'
            ]);
 
 
@@ -135,67 +121,94 @@ class ApplyStudentController extends Controller
                 Storage::delete($apply_student->freedom_fighter_document);
             }
             $imagePath = $request->file('freedom_fighter_document')->storeAs('student_freedom_fighter_document', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('freedom_fighter_document')->getClientOriginalExtension());
-            $apply_student->profile_picture = $imagePath;
+            $apply_student->freedom_fighter_document = $imagePath;
+           
+        }
+
+
+        if ($request->hasFile('minorities_document')) {
+              
+            if ($apply_student->minorities_document) {
+                Storage::delete($apply_student->minorities_document);
+            }
+            $imagePath = $request->file('minorities_document')->storeAs('student_minorities_document', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('minorities_document')->getClientOriginalExtension());
+            $apply_student->minorities_document = $imagePath;
+           
+        }
+
+
+       if ($request->hasFile('otizom_document')) {
+              
+            if ($apply_student->otizom_document) {
+                Storage::delete($apply_student->otizom_document);
+            }
+            $imagePath = $request->file('otizom_document')->storeAs('student_otizom_document', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('otizom_document')->getClientOriginalExtension());
+            $apply_student->otizom_document = $imagePath;
+           
+        }
+
+      
+       if ($request->hasFile('prottoyon_potro')) {
+              
+            if ($apply_student->prottoyon_potro) {
+                Storage::delete($apply_student->prottoyon_potro);
+            }
+            $imagePath = $request->file('prottoyon_potro')->storeAs('student_prottoyon_potro', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('prottoyon_potro')->getClientOriginalExtension());
+            $apply_student->prottoyon_potro = $imagePath;
            
         }
 
             $apply_student->bangla_name = $request->bangla_name;
             $apply_student->engish_name = $request-> engish_name;
             $apply_student->birth_date  = $request->birth_date;
-            $apply_student->birth_date_number = $request-> birth_date_number;
             $apply_student->nationality =  $request->nationality;
-            $apply_student->national_id_number =$request-> national_id_number ;
-            $apply_student->religion =  $request->religion;
+            $apply_student->nid_number =$request->nid_number ;
             $apply_student->gender =  $request->gender;
-            $apply_student->marital_status =  $request->marital_status;
-            $apply_student->partner_name =  $request->partner_name;
+           
             $apply_student->phone_number =  $request->phone_number;
-            $apply_student->email =  $request->email;
-            $apply_student->minorities = $request-> minorities;
-            $apply_student->minorities_name = $request-> minorities_name;
-            $apply_student->freedom_fighter =  $request->freedom_fighter;
-            // $apply_student->freedom_fighter_document =$request-> freedom_fighter_document ;
-            $apply_student->freedom_fighter_name =  $request->freedom_fighter_name;
-            $apply_student->freedom_fighter_relation =  $request->freedom_fighter_relation;
+            $apply_student->land =  $request->land;
+            $apply_student->father_name =  $request->father_name;
+            $apply_student->mother_name =  $request->mother_name;
+
+
             $apply_student->division = $request-> division;
             $apply_student->district = $request-> district;
             $apply_student->thana =  $request->thana;
             $apply_student->union =  $request->union;
             $apply_student->home_no = $request-> home_no;
-            $apply_student->exam_name =  $request->exam_name;
-            $apply_student->board_name = $request-> board_name;
-            $apply_student->roll =  $request->roll;
-            $apply_student->subject =  $request->subject;
-            $apply_student->result_type =  $request->result_type;
-            $apply_student->result =  $request->result;
-            $apply_student->passing_year =  $request->passing_year;
-
-
-            $apply_student->father_bangla_name = $request->father_bangla_name ;
-            $apply_student->father_english_name =  $request->father_english_name;
-            $apply_student->mother_english_name =  $request->mother_english_name;
-            $apply_student->mother_bangla_name =  $request->mother_bangla_name;
-            $apply_student->father_national_id_number =  $request->father_national_id_number;
-            $apply_student->mother_national_id_number =  $request->mother_national_id_number;
-        
-          
-            $apply_student->guardian =  $request->guardian;
-            $apply_student->guardian_education =  $request->guardian_education;
-            $apply_student->guardian_name =  $request->guardian_name;
-            $apply_student->guardian_name_national_id_number =  $request->guardian_name_national_id_number;
-            $apply_student->guardian_address =  $request->guardian_address;
 
             
-            //status
-            $apply_student->status =  $request->status;
-            $apply_student->payment_status =  $request->payment_status;
+            $apply_student->exam_name =  $request->exam_name;
+            $apply_student->class_name = $request->class_name;
+            $apply_student->roll =  $request->roll;
+            $apply_student->subject =  $request->subject;
+            $apply_student->institute_name =  $request->institute_name;
+            
+            
+            $apply_student->minorities_name = $request->minorities_name;
+            $apply_student->otizom_name = $request->otizom_name;
+            $apply_student->freedom_fighter_name =  $request->freedom_fighter_name;
+            $apply_student->freedom_fighter_relation =  $request->freedom_fighter_relation;
+            
+
+            $apply_student->guardian_education =  $request->guardian_education;
+            $apply_student->guardian_name =  $request->guardian_name;
+            $apply_student->guardian_address =  $request->guardian_address;
 
             $apply_student->save();
 
+
+            
+         if (Auth::check()) {
+            $user = Auth::user();
+            $apply_student->users()->attach($user);
+          }else{
+            
             $user = new User();
             $user->name = $request-> engish_name;
-            $user->email=  $request->email;
             $user->phone_number =  $request->phone_number;
+
+         
            
            
            
@@ -208,11 +221,10 @@ class ApplyStudentController extends Controller
            
             $phone= $request->phone_number;
             $roll= $request->roll;
-            $mother= $request->mother_national_id_number;
-            $father = $request->father_national_id_number;
-
-            $pattern_phone = '/\d{2,3}/';
-            $pattern_nationalid = '/\d{1,5}/';
+            $nid= $request->nid_number;
+          
+            $pattern_phone = '/\d{1,1}/';
+            $pattern_nid = '/\d{1,1}/';
              
             //phone
             if (preg_match($pattern_phone, $phone, $matches))
@@ -225,49 +237,30 @@ class ApplyStudentController extends Controller
                  $phoneDigits = null;
               }
 
-              //father
+             
+              //nid
 
-              if (preg_match($pattern_phone, $roll, $matches))
+              if (preg_match($pattern_nid, $nid, $matches))
               {
-                 $rollDigits = $matches[0];
+                 $nidDigits = $matches[0];
               }
               else 
               
               {
-                 $rollDigits = null;
+                 $nidDigits = null;
               }
 
-              //mother
+             
 
-              if (preg_match($pattern_nationalid, $mother, $matches))
-              {
-                 $motherDigits = $matches[0];
-              }
-              else 
-              
-              {
-                 $motherDigits = null;
-              }
-
-              //father
-
-              if (preg_match($pattern_nationalid, $father, $matches))
-              {
-                 $fatherDigits = $matches[0];
-              }
-              else 
-              
-              {
-                 $fatherDigits = null;
-              }
-
-            $user->user_id= "p".$apply_student->id.$phoneDigits."B".$rollDigits."i".$motherDigits."T".$fatherDigits;
-            $password = $user->show_password="U".$apply_student->id.$phoneDigits."o".$rollDigits."R".$motherDigits."t".$fatherDigits."Y";
+            $user->user_id= "p".$apply_student->id.$phoneDigits."Bi".$nidDigits."T";
+            $password = $user->show_password="U".$apply_student->id.$phoneDigits."oR".$nidDigits."tY";
             $user->password= Hash::make($password);
-            
             $user->save();
+            
             $user->assignRole('student');
+            
             $apply_student->users()->attach($user);
+          }
  
 
 
@@ -277,7 +270,9 @@ class ApplyStudentController extends Controller
 
     }
 
-       public function Update(Request $request , $id){
+    
+    
+    public function Update(Request $request , $id){
        
 
 
@@ -301,74 +296,81 @@ class ApplyStudentController extends Controller
                 Storage::delete($apply_student->freedom_fighter_document);
             }
             $imagePath = $request->file('freedom_fighter_document')->storeAs('student_freedom_fighter_document', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('freedom_fighter_document')->getClientOriginalExtension());
-            $apply_student->profile_picture = $imagePath;
+            $apply_student->freedom_fighter_document = $imagePath;
+           
+        }
+
+
+        if ($request->hasFile('minorities_document')) {
+              
+            if ($apply_student->minorities_document) {
+                Storage::delete($apply_student->minorities_document);
+            }
+            $imagePath = $request->file('minorities_document')->storeAs('student_minorities_document', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('minorities_document')->getClientOriginalExtension());
+            $apply_student->minorities_document = $imagePath;
+           
+        }
+
+
+       if ($request->hasFile('otizom_document')) {
+              
+            if ($apply_student->otizom_document) {
+                Storage::delete($apply_student->otizom_document);
+            }
+            $imagePath = $request->file('otizom_document')->storeAs('student_otizom_document', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('otizom_document')->getClientOriginalExtension());
+            $apply_student->otizom_document = $imagePath;
+           
+        }
+
+      
+       if ($request->hasFile('prottoyon_potro')) {
+              
+            if ($apply_student->prottoyon_potro) {
+                Storage::delete($apply_student->prottoyon_potro);
+            }
+            $imagePath = $request->file('prottoyon_potro')->storeAs('student_prottoyon_potro', 'freedom_fighter_document' . now()->format('YmdHis') . '.' . $request->file('prottoyon_potro')->getClientOriginalExtension());
+            $apply_student->prottoyon_potro = $imagePath;
            
         }
 
             $apply_student->bangla_name = $request->bangla_name;
             $apply_student->engish_name = $request-> engish_name;
             $apply_student->birth_date  = $request->birth_date;
-            $apply_student->birth_date_number = $request-> birth_date_number;
             $apply_student->nationality =  $request->nationality;
-            $apply_student->national_id_number =$request-> national_id_number ;
-            $apply_student->religion =  $request->religion;
+            $apply_student->nid_number =$request->nid_number ;
             $apply_student->gender =  $request->gender;
-            $apply_student->marital_status =  $request->marital_status;
-            $apply_student->partner_name =  $request->partner_name;
+           
             $apply_student->phone_number =  $request->phone_number;
-            $apply_student->email =  $request->email;
-            $apply_student->minorities = $request-> minorities;
-            $apply_student->minorities_name = $request-> minorities_name;
-            $apply_student->freedom_fighter =  $request->freedom_fighter;
-            // $apply_student->freedom_fighter_document =$request-> freedom_fighter_document ;
-            $apply_student->freedom_fighter_name =  $request->freedom_fighter_name;
-            $apply_student->freedom_fighter_relation =  $request->freedom_fighter_relation;
+            $apply_student->land =  $request->land;
+            $apply_student->father_name =  $request->father_name;
+            $apply_student->mother_name =  $request->mother_name;
+
+
             $apply_student->division = $request-> division;
             $apply_student->district = $request-> district;
             $apply_student->thana =  $request->thana;
             $apply_student->union =  $request->union;
             $apply_student->home_no = $request-> home_no;
+
+            
             $apply_student->exam_name =  $request->exam_name;
-            $apply_student->board_name = $request-> board_name;
+            $apply_student->class_name = $request->class_name;
             $apply_student->roll =  $request->roll;
             $apply_student->subject =  $request->subject;
-            $apply_student->result_type =  $request->result_type;
-            $apply_student->result =  $request->result;
-            $apply_student->passing_year =  $request->passing_year;
+            $apply_student->institute_name =  $request->institute_name;
+            
+            
+            $apply_student->minorities_name = $request->minorities_name;
+            $apply_student->otizom_name = $request->otizom_name;
+            $apply_student->freedom_fighter_name =  $request->freedom_fighter_name;
+            $apply_student->freedom_fighter_relation =  $request->freedom_fighter_relation;
+            
 
-
-            $apply_student->father_bangla_name = $request->father_bangla_name ;
-            $apply_student->father_english_name =  $request->father_english_name;
-            $apply_student->mother_english_name =  $request->mother_english_name;
-            $apply_student->mother_bangla_name =  $request->mother_bangla_name;
-            $apply_student->father_national_id_number =  $request->father_national_id_number;
-            $apply_student->mother_national_id_number =  $request->mother_national_id_number;
-        
-          
-            $apply_student->guardian =  $request->guardian;
             $apply_student->guardian_education =  $request->guardian_education;
             $apply_student->guardian_name =  $request->guardian_name;
-            $apply_student->guardian_name_national_id_number =  $request->guardian_name_national_id_number;
             $apply_student->guardian_address =  $request->guardian_address;
 
-            
-            //status
-            $apply_student->status =  $request->status;
-            $apply_student->payment_status =  $request->payment_status;
-
             $apply_student->save();
-
-           //userId father- 1-5  phone- 2-3, roll- 2-3, mother- 1-5, 
-           //upobritty 2-4-6-8
-
-             
-          //userId father- 1-5  phone- 2-3, roll- 2-3, mother- 1-5, 
-           //upobritty 1-3-5-7-9
-           
-            
- 
-
-
             
 
             return redirect()->route('apply_list')->with('success', 'Application Updated Successfully');

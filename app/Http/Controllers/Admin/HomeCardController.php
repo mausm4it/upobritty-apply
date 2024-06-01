@@ -37,7 +37,7 @@ class HomeCardController extends Controller
 
         $request->validate([
             'card_name'=> 'required',
-            'card_image'=> 'required|image|dimensions:width=300,height=300'
+            'card_image'=> 'required|image'
            ]);
 
            
@@ -60,10 +60,7 @@ class HomeCardController extends Controller
 
         public function Update(Request $request,$id){
 
-         $request->validate([
-            'card_name'=> 'required',
-            'card_image'=> 'required|image|dimensions:width=300,height=300'
-           ]);
+       
 
         $home_card = HomeCard::find($id);
         

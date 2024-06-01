@@ -1,22 +1,9 @@
-@extends('layouts.app')
+@extends('frontend.layouts.app')
 @section('main_content')
 
-<div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-    <!-- Breadcrumb Start -->
-    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 class="text-title-md2 font-bold text-black dark:text-white">
-            Student Application
-        </h2>
 
-        <nav>
-            <ol class="flex items-center gap-2">
-                <li>
-                    <a class="font-medium" href="index.html">Dashboard /</a>
-                </li>
-                <li class="font-medium text-primary">Student Application</li>
-            </ol>
-        </nav>
-    </div>
+<div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+
 
 
     <button id="download-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-5">Download
@@ -35,25 +22,25 @@
 
         <div class="p-4 sm:p-6 xl:p-9 mb-9 ">
             <div class="flex mb-9">
-                <div class="w-1/3  h-12 mb-9">
-                    <img style="height:130px;width:110px" class=" border border-green-500 "
+                <div class="w-1/3 h-12 mb-9">
+
+                    <img style="height:150px;width:130px" class=" border border-green-500"
                         src="{{asset('storage/app/'.$student_apply->profile_picture)}}"
                         alt="{{$student_apply->bangla_name}}">
                 </div>
 
-                <div class="w-1/3  h-12  mb-9">
-                    <h3 class="text-5xl text-center text-green-700 mb-2">{{$settings->site_name}}</h3>
-                    <h1 class="text-2xl text-center">আবেদনপত্র কপি</h1>
-                    <hr>
+                <div class="w-1/3 h-12  mb-9">
+                    <h3 class="text-center"> upobritty.com </h3>
+                    <h1 class="text-2xl text-center">Application's Copy</h1>
                 </div>
-                <div class="w-1/3  h-12 mb-9">
-                    <h4 class="text-xl font-bold text-black dark:text-white">
+                <div class="w-1/3 h-12  mb-9">
+                    <h4 class="mb-3 text-xl font-bold text-black dark:text-white">
                         {{$student_apply->bangla_name}}
                     </h4>
 
-                    <span class="block"><span class="font-medium text-black dark:text-white">মোবাইল নম্বর:</span>
+                    <span class="mt-1.5 block"><span class="font-medium text-black dark:text-white">Phone Number:</span>
                         {{$student_apply->phone_number}}</span>
-                    <span class="block mb-5"><span class="font-medium text-black dark:text-white">ইউজার আইডি:</span>
+                    <span class="mt-1.5 block mb-5"><span class="font-medium text-black dark:text-white">User ID:</span>
                         {{$student_apply->users()->first()->user_id}}</span>
                 </div>
             </div>
@@ -379,12 +366,13 @@
                             </div>
 
                             <div class="col-span-6">
-                                <a class="text-green-500"
-                                    href="{{asset('storage/app/'.$student_apply->prottoyon_potro)}}"
-                                    download="{{$student_apply->prottoyon_potro}}">Download</a>
+                                @isset($student_apply->prottoyon_potro)
                                 <h5 class="font-medium text-black dark:text-white">
-
+                                    Submitted
                                 </h5>
+                                @endisset
+
+
                             </div>
                         </div>
                     </div>
@@ -461,22 +449,7 @@
 
 
 
-                        <div class="grid grid-cols-12 border-b border-stroke py-1.5 pl-5 pr-6 dark:border-strokedark">
-                            <div class="col-span-6">
-                                <h5 class="font-medium text-black dark:text-white">
-                                    প্রমাণ পত্র
-                                </h5>
-                            </div>
 
-                            <div class="col-span-6">
-                                <a class="text-green-500"
-                                    href="{{asset('storage/app/'.$student_apply->minorities_document)}}"
-                                    download="{{$student_apply->minorities_document}}">Download</a>
-                                <h5 class="font-medium text-black dark:text-white">
-
-                                </h5>
-                            </div>
-                        </div>
 
                         <div class="grid grid-cols-12 border-b border-stroke py-1.5 pl-5 pr-6 dark:border-strokedark">
                             <div class="col-span-6">
@@ -510,23 +483,6 @@
 
 
 
-
-                        <div class="grid grid-cols-12 border-b border-stroke py-1.5 pl-5 pr-6 dark:border-strokedark">
-                            <div class="col-span-6">
-                                <h5 class="font-medium text-black dark:text-white">
-                                    প্রমাণ পত্র
-                                </h5>
-                            </div>
-
-                            <div class="col-span-6">
-                                <a class="text-green-500"
-                                    href="{{asset('storage/app/'.$student_apply->freedom_fighter_document)}}"
-                                    download="{{$student_apply->freedom_fighter_document}}">Download</a>
-                                <h5 class="font-medium text-black dark:text-white">
-
-                                </h5>
-                            </div>
-                        </div>
 
                         <div class="grid grid-cols-12 border-b border-stroke py-1.5 pl-5 pr-6 dark:border-strokedark">
                             <div class="col-span-6">
@@ -573,25 +529,6 @@
                     <div class="min-w-[670px]">
                         <!-- table header start -->
 
-
-
-
-                        <div class="grid grid-cols-12 border-b border-stroke py-1.5 pl-5 pr-6 dark:border-strokedark">
-                            <div class="col-span-6">
-                                <h5 class="font-medium text-black dark:text-white">
-                                    শারীরিক প্রতিবন্ধীর তথ্যঃ
-                                </h5>
-                            </div>
-
-                            <div class="col-span-6">
-                                <a class="text-green-500"
-                                    href="{{asset('storage/app/'.$student_apply->otizom_document)}}"
-                                    download="{{$student_apply->otizom_document}}">Download</a>
-                                <h5 class="font-medium text-black dark:text-white">
-
-                                </h5>
-                            </div>
-                        </div>
 
                         <div class="grid grid-cols-12 border-b border-stroke py-1.5 pl-5 pr-6 dark:border-strokedark">
                             <div class="col-span-6">

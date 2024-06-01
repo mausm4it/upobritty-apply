@@ -7,7 +7,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['role:admin']], function () { 
     //dashboard
-   Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+  Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+      //dasboard short cut
+  Route::get('/paid_payment_apply_student_list', 'DashboardController@paid_payment')->name('paid_payment_apply_list');
+  Route::get('/reject_apply_student_list', 'DashboardController@reject_apply')->name('reject_apply_list');
+  Route::get('/college_wise_list', 'DashboardController@college_wise_list')->name('college_wise_list');
+  Route::get('/hsc_wise_list', 'DashboardController@hsc_wise_list')->name('hsc_wise_list');
+  Route::get('/ssc_wise_list', 'DashboardController@ssc_wise_list')->name('ssc_wise_list');
+  Route::get('/honarce_wise_list', 'DashboardController@honarce_wise_list')->name('honarce_wise_list');
+
+
+  
 
    //Home_card
    Route::get('/home_card', 'HomeCardController@index')->name('home_card');
@@ -18,7 +29,9 @@ Route::group(['middleware' => ['role:admin']], function () {
   Route::post('/home_card_create', 'HomeCardController@Create')->name('home_card_create');
   Route::put('/home_card_status/{id}/update_home_card_status','HomeCardController@updateStatus')->name('update_home_card_status');
 
-   //apply
+
+  
+  //apply
    Route::get('/apply_student_list', 'ApplyStudentController@index')->name('apply_list');
    Route::get('/submit_student_apply_view', 'ApplyStudentController@Submit')->name('submit_student_apply_view');  
    Route::post('/create_student_apply', 'ApplyStudentController@Make')->name('create_student_apply');
