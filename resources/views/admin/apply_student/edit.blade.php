@@ -176,7 +176,8 @@
                             <label class="mb-3 block text-base font-medium text-[#07074D]">
                                 মোবাইল নম্বর
                             </label>
-                            <input type="tel" name="phone_number" placeholder="আপনার মোবাইল নম্বর লিখুন" minlength="9"
+                            <input type="text" name="phone_number" placeholder="আপনার মোবাইল নম্বর লিখুন" minlength="9"
+                                minlength="11" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                 value="{{ old('phone_number', $student_apply->phone_number) }}"
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                 required />

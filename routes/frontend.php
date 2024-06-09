@@ -32,13 +32,6 @@ Route::post('/user_login', 'HomeController@user_login')->name('user_login');
   Route::get('/notice/{id}', 'HomeController@notice_view')->name('notice_view');
 
 
-  //bkash
-
-
-Route::post('/create-payment', [PaymentController::class, 'createPayment'])->name('create-payment');
-Route::post('/execute-payment', [PaymentController::class, 'executePayment']);
-Route::post('/query-payment', [PaymentController::class, 'queryPayment']);
-
 
 
 Route::get('/success', function(){

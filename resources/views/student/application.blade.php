@@ -15,12 +15,14 @@
         <div class="loader w-16 h-16 border-4 border-t-4 border-gray-200 rounded-full"></div>
     </div>
 
+    <style>
 
+    </style>
     <div id="content"
         class="mb-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
 
 
-        <div class="p-4 sm:p-6 xl:p-9 mb-9 ">
+        <div class="p-4 sm:p-6 xl:p-9 mb-9">
             <div class="flex mb-9">
                 <div class="w-1/3 h-12 mb-9">
 

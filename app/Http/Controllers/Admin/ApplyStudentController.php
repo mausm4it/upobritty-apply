@@ -28,8 +28,6 @@ class ApplyStudentController extends Controller
      public function sendSMS($id){
         $students_apply = ApplyStudent::find($id);
 
-         
-
          $user_id= $students_apply->users()->first()->user_id;
          $password= $students_apply->users()->first()->show_password;
 
@@ -43,13 +41,7 @@ class ApplyStudentController extends Controller
                 'MobileNumbers' => '88'.$students_apply->phone_number
             ]
         ]);
-// if ($response->getStatusCode() == 200) {
-//         $responseData = json_decode($response->getBody(), true);
-//         return response()->json($responseData);
-//     } else {
-//         return response()->json(['error' => 'Failed to send SMS'], $response->getStatusCode());
-//     }
-        // Check if the response is successful
+
         if ($response->getStatusCode() == 200) {
            
             return redirect()->back()->with('success' , "User ID Password Send Successfully");

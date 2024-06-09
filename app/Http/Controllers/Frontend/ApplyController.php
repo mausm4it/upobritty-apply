@@ -213,7 +213,8 @@ class ApplyController extends Controller
           }
 
 
-            
+            $request->session()->put('apply_student', $apply_student->id);
+
 
             return view('frontend.payment_view' , compact('apply_student'));
 

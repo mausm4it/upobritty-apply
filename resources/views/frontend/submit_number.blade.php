@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('main_content')
 <!-- Alerts Item -->
-@if ($apply_student)
+@if (session('apply_student'))
 
 <div
     class="flex w-full border-l-6 border-[#34D399] bg-[#34D399] bg-opacity-[15%] px-7 py-8 shadow-md dark:bg-[#1B1B24] dark:bg-opacity-30 md:p-9">
@@ -14,75 +14,33 @@
     </div>
     <div class="w-full">
         <h5 class="mb-3 font-bold text-success">
-            স্বাগতম {{ $apply_student->bangla_name }} ! আপনার এপ্লিকেশন এর জন্য পেমেন্ট করুন ।
+            যে নাম্বারে উপবৃত্তির টাকা গ্রহন করতে চাচ্ছেন সেই নাম্বারটি দিন।
         </h5>
-        <h4 class="text-red-600">আপনার ইউজার আইডি ও পাসওয়ার্ড পেতে পেমেন্ট করুন ।
+        <h4 class="text-red-600">অবশ্যই বিকাশ নাম্বার হতে হবে
         </h4>
 
 
         <form class="max-w-sm mx-auto" action="{{route('payment_info_input')}}" method="POST">
             @csrf
             <div class="mb-5">
-                <label for="info" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ট্রানজেকশন আইডি /
-                    সেন্ড মানি নাম্বার</label>
+                <label for="info" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">টাকা গ্রহন এর
+                    নাম্বার</label>
                 <input type="text" id="info" name="info"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="ট্রানজেকশন আইডি অথবা সেন্ড মানি নাম্বার লিখুন" required />
+                    placeholder="টাকা গ্রহন এর
+                    নাম্বার লিখুন" required />
             </div>
 
 
             <input type="hidden" id="apply_student_id" name="apply_student_id"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                value="{{$apply_student->id}}" />
+                value="{{ session('apply_student') }}" />
 
             <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </form>
 
-        <form id="payment-form" action="/create-payment" method="POST">
-            @csrf
-            <label for="amount">Amount:</label>
-            <input type="hidden" id="amount" name="amount" value="10">
-            <button type="submit">Pay Now</button>
-        </form>
 
-        <script>
-            document.getElementById('payment-form').addEventListener('submit', function(event) {
-                    event.preventDefault();
-        
-                    let amount = document.getElementById('amount').value;
-        
-                    fetch('/create-payment', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ amount: amount })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.paymentID) {
-                            fetch('/execute-payment', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                },
-                                body: JSON.stringify({ paymentID: data.paymentID })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data && data.statusCode === '0000') {
-                                    alert('Payment successful!');
-                                } else {
-                                    alert('Payment failed!');
-                                }
-                            });
-                        }
-                    });
-                });
-        </script>
 
     </div>
 </div>

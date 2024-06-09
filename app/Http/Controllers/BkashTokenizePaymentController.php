@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Karim007\LaravelBkashTokenize\Facade\BkashPaymentTokenize;
 use Karim007\LaravelBkashTokenize\Facade\BkashRefundTokenize;
+use App\Models\ApplyStudent;
 
 class BkashTokenizePaymentController extends Controller
 {
@@ -20,7 +21,7 @@ class BkashTokenizePaymentController extends Controller
         $request['currency'] = 'BDT';
         $request['amount'] = 10;
         $request['merchantInvoiceNumber'] = $inv;
-        $request['callbackURL'] = config("bkash.callbackURL");;
+        $request['callbackURL'] = config("bkash.callbackURL");
 
         $request_data_json = json_encode($request->all());
 
@@ -49,10 +50,14 @@ class BkashTokenizePaymentController extends Controller
             }
 
             if (isset($response['statusCode']) && $response['statusCode'] == "0000" && $response['transactionStatus'] == "Completed") {
-                /*
-                 * for refund need to store
-                 * paymentID and trxID
-                 * */
+                
+                $id = session('apply_student');
+                $student_apply = ApplyStudent::findOrFail($id);
+                $student_apply->payment_status = 'paid';
+                $student_apply->save();
+
+
+                 
                 return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
             }
             return BkashPaymentTokenize::failure($response['statusMessage']);
