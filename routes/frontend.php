@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
+
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/page_view/{id}', 'HomeController@page_view')->name('page_view');
@@ -8,6 +10,7 @@ Route::get('/apply-for-uporitty-view', 'ApplyController@index')->name('apply-for
 Route::post('/apply-uporitty', 'ApplyController@ApplyUpobritty')->name('apply-uporitty');
 
 Route::get('/payment_view', 'PaymentController@index')->name('payment_view');
+Route::get('/submit_number', 'PaymentController@submit_number')->name('submit_number');
 Route::post('/payment_info_input', 'PaymentController@payment_info_input')->name('payment_info_input');
 
 //pages
@@ -27,6 +30,15 @@ Route::post('/user_login', 'HomeController@user_login')->name('user_login');
   //notice board
   Route::get('/notice_board_list', 'HomeController@notice_board_list')->name('notice_board_list');
   Route::get('/notice/{id}', 'HomeController@notice_view')->name('notice_view');
+
+
+  //bkash
+
+
+Route::post('/create-payment', [PaymentController::class, 'createPayment'])->name('create-payment');
+Route::post('/execute-payment', [PaymentController::class, 'executePayment']);
+Route::post('/query-payment', [PaymentController::class, 'queryPayment']);
+
 
 
 Route::get('/success', function(){

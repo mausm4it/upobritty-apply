@@ -12,7 +12,13 @@ class PaymentController extends Controller
         return view('frontend.payment_view');
     }
 
+    public function submit_number(){
+        return view('frontend.submit_number');
+    }
+
     public function payment_info_input(Request $request){
+
+        
         $payment = new PaymentInfo;
         $payment->info =  $request->info;
         $payment->apply_student_id = $request->apply_student_id;
